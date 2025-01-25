@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-
+        GameOn = true;
     }
 
     public void TransitionToGame()
@@ -42,13 +42,18 @@ public class GameManager : MonoBehaviour
     {
         //Play Transition Video
         //remove title
-        title.DOColor(new Color(1, 1, 1, 0), 0.5f);
-        //wait one sec
-        // Remove Menu UI
+        Vector3 pos = title.rectTransform.position;
+        pos.y += 5;
+        title.rectTransform.DOAnchorPos(new Vector2(title.rectTransform.anchoredPosition.x, title.rectTransform.anchoredPosition.y + 600), 1f);
+
+        //title.DOColor(new Color(1, 1, 1, 0), 0.5f);
+        
+        // Remove Menu buttons UI
         //flatten your opponents bla bla bla instruction
         //wait for 6 seconds
         //3 2 1 countdown coroutine
         //startgame
+        StartGame();
         yield return null;
     }
 
