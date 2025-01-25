@@ -13,6 +13,8 @@ public class Balloon : MonoBehaviour
     private float startX;
     private Rigidbody2D rb;
 
+    public int score;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -22,8 +24,9 @@ public class Balloon : MonoBehaviour
         swayAmplitude = Random.Range(0.5f, 1f);
         swayFrequency = Random.Range(0.5f, 1f);
 
+        StartCoroutine(CO_Explode());
         // Destroy the balloon after a random amount of time
-        Destroy(gameObject, Random.Range(3f, 7f));
+       // Destroy(gameObject, Random.Range(3f, 7f));
     }
 
     void FixedUpdate()
@@ -36,6 +39,17 @@ public class Balloon : MonoBehaviour
 
         // Apply the sway on the X axis while preserving the vertical velocity
         rb.position = new Vector2(newX, rb.position.y);
+    }
+
+    public IEnumerator CO_Explode()
+    {
+        yield return new WaitForSeconds(Random.Range(1.5f, 4));
+        GetComponent<Animator>().SetTrigger("Explode");
+    }
+
+    public void destoryOBJ()
+    {
+        Destroy(gameObject);
     }
 }
 

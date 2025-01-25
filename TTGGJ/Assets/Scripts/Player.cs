@@ -1,10 +1,14 @@
 using UnityEngine;
 
-public class Reticle : MonoBehaviour
+public class Player : MonoBehaviour
 {
-    [SerializeField] int score;
+    [SerializeField] string name;
+    [SerializeField] public int score;
     [SerializeField] GameObject currentBalloon;
     [SerializeField] string targetTag;
+    [SerializeField] GameManager gmanager;
+
+    public int Score;
 
     void Start()
     {
@@ -13,9 +17,17 @@ public class Reticle : MonoBehaviour
 
     void Update()
     {
+        //if (!gmanager.GameOn) return;
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Shot();
+        }
+
+
+        if(score >= 10)
+        {
+            gmanager.EndGame(name);
         }
     }
 
@@ -38,13 +50,15 @@ public class Reticle : MonoBehaviour
         {
             if(currentBalloon.gameObject.tag == targetTag)
             {
-                Score();
+                currentBalloon.GetComponent<Animator>().SetTrigger("Explode");
+                currentBalloon.GetComponent<Animator>().SetTrigger("Explode");
+                AddScore(currentBalloon.GetComponent<Balloon>().score);
             }
         }
     }
 
-    public void Score()
+    public void AddScore(int score)
     {
-
+        Score += score;
     }
 }

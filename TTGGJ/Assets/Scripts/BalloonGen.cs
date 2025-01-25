@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class BalloonGen : MonoBehaviour
 {
@@ -10,8 +11,13 @@ public class BalloonGen : MonoBehaviour
     public GameObject BalloonPrefabOne;
     public GameObject BalloonPrefabTwo;
 
+    public GameManager gmanager;
+
     private void Update()
     {
+        if (!gmanager.GameOn) return;
+
+
         timer += Time.deltaTime;
         
         if(timer >= 0.75f)
@@ -24,9 +30,13 @@ public class BalloonGen : MonoBehaviour
     public void SpawnBalloon()
     {
         Vector2 spawnPos = new Vector2(Random.Range(SpawnLimitXLeft, SpawnLimitXRight), -5.5f);
-        Instantiate(BalloonPrefabOne, spawnPos, transform.rotation);
+        GameObject bOne = Instantiate(BalloonPrefabOne, spawnPos, transform.rotation);
 
         spawnPos = new Vector2(Random.Range(SpawnLimitXLeft, SpawnLimitXRight), -5.5f);
-        Instantiate(BalloonPrefabTwo, spawnPos, transform.rotation);
+        GameObject bTwo = Instantiate(BalloonPrefabTwo, spawnPos, transform.rotation);
+
+
+        bOne.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 7.5f);
+        bTwo.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 7.5f);
     }
 }
