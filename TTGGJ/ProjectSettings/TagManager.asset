@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Pepsi
   - Cola
+  - BigScore
+  - MedScore
+  - SmallScore
   layers:
   - Default
   - TransparentFX

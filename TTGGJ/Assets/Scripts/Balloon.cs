@@ -15,6 +15,8 @@ public class Balloon : MonoBehaviour
 
     public int score;
 
+    public AudioSource popSound;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -25,6 +27,8 @@ public class Balloon : MonoBehaviour
         swayFrequency = Random.Range(0.5f, 1f);
 
         StartCoroutine(CO_Explode());
+
+        popSound = GetComponent<AudioSource>();
         // Destroy the balloon after a random amount of time
        // Destroy(gameObject, Random.Range(3f, 7f));
     }
@@ -50,6 +54,28 @@ public class Balloon : MonoBehaviour
     public void destoryOBJ()
     {
         Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //print(collision.gameObject.name);
+
+
+        if (collision.gameObject.tag == "BigScore")
+        {
+            score = 30;
+            //print("yesss");
+        }
+
+        if (collision.gameObject.tag == "MedScore")
+        {
+            score = 20;
+        }
+
+        if (collision.gameObject.tag == "SmallScore")
+        {
+            score = 10;
+        }
     }
 }
 
